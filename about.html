@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Jackson | Explore. Move. Reflect.</title>
+    <style>
+        /* Consistent with Homepage */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 8%;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: flex-end;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+        
+        nav a:hover {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+        
+        /* Main Content */
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 5% 80px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #7f8c8d;
+        }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #3498db;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f1f1;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        /* Interest Grid */
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .interest-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            transition: transform 0.3s;
+        }
+        
+        .interest-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .interest-icon {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+        
+        /* Skills List */
+        .skills-list {
+            columns: 2;
+            column-gap: 40px;
+        }
+        
+        .skills-list li {
+            margin-bottom: 10px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .skills-list li:before {
+            content: "•";
+            color: #3498db;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #2c3e50;
+            color: white;
+            font-style: italic;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-list {
+                columns: 1;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About me</a></li>
+            <li><a href="diving.html">Deep Stuff</a></li>
+            <li><a href="blog.html">Random Thoughts</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="about-container">
+        <header class="page-header">
+            <h1 class="page-title">Hello, I'm Jackson</h1>
+            <p class="page-subtitle">Dancer • Diver • Dreamer</p>
+        </header>
+        
+        <!-- Introduction Section -->
+        <section class="section">
+            <h2 class="section-title">Nice to Meet You</h2>
+            <p class="intro-text">
+                I'm Jackson, a 25-year-old explorer at heart who believes life's too short to stay in one place - physically or mentally. 
+                Whether I'm dancing under city lights, diving into ocean depths, or scribbling thoughts in my journal, 
+                I'm constantly seeking experiences that stretch my perspective and connect me with interesting people.
+            </p>
+            <p class="intro-text">
+                This website is my way of sharing the journey - the beautiful moments, the awkward stumbles, 
+                and everything in between. No filters, no pretense, just real experiences as I explore what it means 
+                to live fully.
+            </p>
+        </section>
+        
+        <div class="two-column">
+            <!-- Personal Interests -->
+            <section class="section">
+                <h2 class="section-title">My Passions</h2>
+                <div class="interest-grid">
+                    <div class="interest-item">
+                        <div class="interest-icon">💃</div>
+                        <h3>Dance</h3>
+                        <p>Contemporary and street styles. Dance is my moving meditation.</p>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">🌊</div>
+                        <h3>Diving</h3>
+                        <p>PADI certified. Passionate about coral reef conservation.</p>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">✈️</div>
+                        <h3>Travel</h3>
+                        <p>38 countries and counting. I collect stories, not souvenirs.</p>
+                    </div>
+                    <div class="interest-item">
+                        <div class="interest-icon">📓</div>
+                        <h3>Journaling</h3>
+                        <p>Daily practice to process experiences and ideas.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Professional Background -->
+            <section class="section">
+                <h2 class="section-title">My Journey</h2>
+                <p class="intro-text">
+                    With a background in environmental science and performing arts, I've carved an unconventional path 
+                    that lets me blend my love for nature, movement, and storytelling.
+                </p>
+                <h3 style="margin-top: 25px; color: #2c3e50;">Skills & Experience</h3>
+                <ul class="skills-list">
+                    <li>Marine Conservation Advocacy</li>
+                    <li>Underwater Photography</li>
+                    <li>Dance Instruction</li>
+                    <li>Creative Writing</li>
+                    <li>Environmental Education</li>
+                    <li>Project Management</li>
+                    <li>Public Speaking</li>
+                    <li>Social Media Storytelling</li>
+                </ul>
+            </section>
+        </div>
+        
+        <!-- Goals Section -->
+        <section class="section">
+            <h2 class="section-title">Looking Ahead</h2>
+            <p class="intro-text">
+                My current mission is to combine my passions by creating content that inspires environmental 
+                awareness through art and adventure. I'm particularly interested in projects that:
+            </p>
+            <ul class="skills-list" style="margin-top: 20px;">
+                <li>Use dance to communicate environmental messages</li>
+                <li>Document marine ecosystems through film</li>
+                <li>Develop accessible environmental education programs</li>
+                <li>Build communities around sustainable travel</li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer>
+        Want to collaborate or share ideas? Reach me at hello@jacksonadventures.com
+    </footer>
+</body>
+</html>

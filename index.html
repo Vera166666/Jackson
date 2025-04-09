@@ -1,34 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Your Name | Personal Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jackson | Explore. Move. Reflect.</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-        header { background: #f4f4f4; padding: 2rem; text-align: center; }
-        section { padding: 2rem; max-width: 800px; margin: auto; }
-        img { border-radius: 50%; width: 150px; height: 150px; object-fit: cover; }
-        footer { background: #333; color: white; text-align: center; padding: 1rem; }
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            background: url('ocean_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+        
+        /* Ocean overlay effect */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 119, 182, 0.6) 0%, rgba(0, 180, 216, 0.5) 100%);
+            z-index: 1;
+        }
+        
+        /* Main Layout */
+        .page-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Left Image Section */
+        .image-section {
+            width: 45%;
+            background: url('homepage_bg.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+        }
+        
+        /* Right Content Section */
+        .content-section {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+        }
+        
+        .name {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .tagline {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 40px;
+            right: 8%;
+            z-index: 3;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        nav a:hover {
+            color: #caf0f8;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #caf0f8;
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Footer */
+        footer {
+            position: absolute;
+            bottom: 40px;
+            right: 8%;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .name {
+                font-size: 3.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.5rem;
+            }
+            
+            .image-section {
+                width: 50%;
+                clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            }
+            
+            .content-section {
+                width: 50%;
+                padding: 0 5%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
+            
+            .page-container {
+                flex-direction: column;
+            }
+            
+            .image-section {
+                width: 100%;
+                height: 50vh;
+                clip-path: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
+            
+            .content-section {
+                width: 100%;
+                padding: 50px 8%;
+                text-align: center;
+                align-items: center;
+            }
+            
+            nav {
+                right: 5%;
+                top: 20px;
+            }
+            
+            footer {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 40px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <img src="https://via.placeholder.com/150" alt="Your Name">
-        <h1>Your Name</h1>
-        <p>Web Developer | Designer | Hobbyist</p>
-    </header>
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hello! I'm [Your Name]. This is my personal website. Customize this section later!</p>
-    </section>
-    <section id="projects">
-        <h2>My Projects</h2>
-        <ul>
-            <li>Project 1: Description</li>
-            <li>Project 2: Description</li>
-        </ul>
-    </section>
-    <footer>
-        <p>Contact me at: <a href="mailto:you@example.com">you@example.com</a></p>
-    </footer>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="about.html">About me</a></li>
+                <li><a href="diving.html">Deep Stuff</a></li>
+                <li><a href="blog.html">Random Thoughts</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Left Image -->
+        <div class="image-section"></div>
+        
+        <!-- Right Content -->
+        <div class="content-section">
+            <h1 class="name">Jackson</h1>
+            <p class="tagline">Explore. Move. Reflect.</p>
+        </div>
+        
+        <footer>
+            Hit me up if you wanna talk about wave or Random Thoughts.
+        </footer>
+    </div>
 </body>
 </html>

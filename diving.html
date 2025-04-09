@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Stuff | Jackson's Diving Adventures</title>
+    <style>
+        /* Consistent with main site */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #2c3e50;
+            padding: 20px 8%;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #3498db;
+        }
+        
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: #006994;
+            margin-bottom: 10px;
+        }
+        
+        /* Video archive styles */
+        .video-archive {
+            margin-top: 40px;
+        }
+        
+        .year-group {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .year-header {
+            width: 100%;
+            padding: 20px;
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3rem;
+            transition: background-color 0.3s;
+        }
+        
+        .year-header:hover {
+            background-color: #0096c7;
+        }
+        
+        .month-group {
+            border-bottom: 1px solid #eee;
+        }
+        
+        .month-group:last-child {
+            border-bottom: none;
+        }
+        
+        .month-header {
+            width: 100%;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .month-header:hover {
+            background-color: #e9ecef;
+        }
+        
+        .toggle-icon {
+            transition: transform 0.3s;
+        }
+        
+        .month-header.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-thumb {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-thumb img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .video-info {
+            padding: 15px;
+        }
+        
+        .video-info h3 {
+            margin-bottom: 8px;
+            color: #006994;
+        }
+        
+        .video-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Modal for video player */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 900px;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #2c3e50;
+            color: white;
+            font-style: italic;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 15px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="deep-stuff.html">Deep Stuff</a></li>
+            <li><a href="blog.html">Random Thoughts</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">Deep Stuff</h1>
+            <p>Jackson's underwater adventures - grouped by year and month</p>
+        </header>
+        
+        <div class="video-archive">
+            <!-- 2023 Videos -->
+            <div class="year-group">
+                <button class="year-header">
+                    <h2>2023</h2>
+                    <span class="toggle-icon">▼</span>
+                </button>
+                
+                <div class="months-container">
+                    <!-- July 2023 -->
+                    <div class="month-group">
+                        <button class="month-header">
+                            <h3>July</h3>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                        
+                        <div class="videos-grid">
+                            <div class="video-card">
+                                <div class="video-thumb">
+                                    <img src="https://img.youtube.com/vi/mmD1HJxd_7w/mqdefault.jpg" 
+                                         alt="Coral Reef Exploration"
+                                         onclick="openModal('mmD1HJxd_7w')">
+                                </div>
+                                <div class="video-info">
+                                    <h3>Coral Reef Exploration</h3>
+                                    <div class="video-meta">
+                                        <span>07/2023</span>
+                                        <span>📍 Maldives</span>
+                                    </div>
+                                    <p>Discovering vibrant coral formations in the Maldives archipelago</p>
+                                </div>
+                            </div>
+                            
+                            <div class="video-card">
+                                <div class="video-thumb">
+                                    <img src="https://img.youtube.com/vi/gV3h8we372U/mqdefault.jpg" 
+                                         alt="Night Dive with Manta Rays"
+                                         onclick="openModal('gV3h8we372U')">
+                                </div>
+                                <div class="video-info">
+                                    <h3>Night Dive with Manta Rays</h3>
+                                    <div class="video-meta">
+                                        <span>07/2023</span>
+                                        <span>📍 Indonesia</span>
+                                    </div>
+                                    <p>Magical encounter with mantas feeding on plankton under lights</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- August 2023 -->
+                    <div class="month-group">
+                        <button class="month-header">
+                            <h3>August</h3>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                        
+                        <div class="videos-grid">
+                            <div class="video-card">
+                                <div class="video-thumb">
+                                    <img src="https://img.youtube.com/vi/T3wCrNhTW3Y/mqdefault.jpg" 
+                                         alt="Shipwreck Discovery"
+                                         onclick="openModal('T3wCrNhTW3Y')">
+                                </div>
+                                <div class="video-info">
+                                    <h3>Shipwreck Discovery</h3>
+                                    <div class="video-meta">
+                                        <span>08/2023</span>
+                                        <span>📍 Thailand</span>
+                                    </div>
+                                    <p>Exploring a historic WWII wreck now teeming with marine life</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <iframe id="ytPlayer" width="100%" height="500" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <footer>
+        Hit me up if you wanna talk about diving or ocean conservation!
+    </footer>
+
+    <script>
+        // Toggle functionality for year/month sections
+        document.querySelectorAll('.year-header, .month-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const isMonth = header.classList.contains('month-header');
+                const content = header.nextElementSibling;
+                
+                // Toggle collapse state
+                if (isMonth) {
+                    header.classList.toggle('collapsed');
+                }
+                
+                // Toggle content visibility
+                if (content.style.display === 'none' || content.style.display === '') {
+                    content.style.display = isMonth ? 'grid' : 'block';
+                    header.querySelector('.toggle-icon').textContent = '▼';
+                } else {
+                    content.style.display = 'none';
+                    if (isMonth) {
+                        header.querySelector('.toggle-icon').textContent = '▶';
+                    }
+                }
+            });
+        });
+        
+        // Video modal functionality
+        function openModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('ytPlayer');
+            player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const player = document.getElementById('ytPlayer');
+            player.src = '';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
